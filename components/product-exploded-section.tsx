@@ -210,16 +210,16 @@ export function ProductExplodedSection() {
   return (
     <section
       ref={containerRef}
-      className="relative mesh-bg py-8 lg:h-[220vh] lg:py-0"
+      className="relative mesh-bg py-4 sm:py-6 lg:h-[200vh] lg:py-0"
       aria-label="BioLoop-60 product exploration"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute left-1/2 top-1/3 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-primary/[0.06] blur-[100px]" />
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 sm:px-6 lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:flex-row lg:items-center lg:gap-8 lg:px-8">
+      <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 sm:gap-5 sm:px-6 lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:flex-row lg:items-center lg:gap-8 lg:px-8">
           {/* Product */}
-          <div className="relative order-1 flex h-[240px] shrink-0 items-center justify-center sm:h-[280px] md:h-[320px] lg:order-2 lg:h-full lg:max-h-none lg:flex-1">
+          <div className="relative order-1 flex h-[200px] shrink-0 items-center justify-center sm:h-[240px] md:h-[280px] lg:order-2 lg:h-full lg:max-h-none lg:flex-1">
             <div className="pointer-events-none absolute bottom-[8%] left-1/2 h-14 w-[65%] -translate-x-1/2 rounded-[100%] bg-[radial-gradient(ellipse_at_center,rgba(74,124,68,0.18)_0%,transparent_70%)] blur-md" />
 
             <div className="relative h-[90%] w-full max-w-md">

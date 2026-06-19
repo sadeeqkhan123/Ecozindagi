@@ -11,6 +11,8 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useCurrency } from '@/lib/currency-context'
+import { isProductPurchasable } from '@/lib/product-availability'
+import { cn } from '@/lib/utils'
 
 export default function ProductDetailPage() {
   const params = useParams()
@@ -42,7 +44,10 @@ export default function ProductDetailPage() {
     .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 4)
 
+  const purchasable = isProductPurchasable(product.slug)
+
   const handleAddToCart = () => {
+    if (!purchasable) return
     addToCart(product, quantity)
     setShowAddedMessage(true)
     setTimeout(() => setShowAddedMessage(false), 2000)
@@ -92,9 +97,16 @@ export default function ProductDetailPage() {
                     src={product.image}
                     alt={product.name}
                     fill
-                    className="object-contain p-6"
+                    className={cn('object-contain p-6', !purchasable && 'opacity-75 blur-[1px]')}
                     priority
                   />
+                  {!purchasable && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-[3px]">
+                      <span className="rounded-full border border-white/80 bg-white/95 px-5 py-2 text-sm font-bold uppercase tracking-wider text-primary shadow-lg">
+                        Coming Soon
+                      </span>
+                    </div>
+                  )}
                 </div>
               </motion.div>
 
@@ -118,7 +130,7 @@ export default function ProductDetailPage() {
                 <div className="space-y-4 border-t border-b border-border py-6">
                   <div className="flex items-baseline gap-4">
                     <p className="font-heading text-3xl font-bold text-foreground sm:text-4xl">
-                      {formatPrice(product.price)}
+                      {purchasable ? formatPrice(product.price) : 'Coming Soon'}
                     </p>
                   </div>
                   <div className="flex items-center gap-4">
@@ -126,10 +138,14 @@ export default function ProductDetailPage() {
                       Impact Score: {product.ecoScore}%
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      {product.inStock ? (
-                        <span className="text-green-600 dark:text-green-400">In Stock</span>
+                      {purchasable ? (
+                        product.inStock ? (
+                          <span className="text-green-600 dark:text-green-400">In Stock</span>
+                        ) : (
+                          <span className="text-red-600">Out of Stock</span>
+                        )
                       ) : (
-                        <span className="text-red-600">Out of Stock</span>
+                        <span className="font-medium text-primary">Launching soon</span>
                       )}
                     </div>
                   </div>
@@ -161,35 +177,49 @@ export default function ProductDetailPage() {
                   </div>
                 )}
 
-                {/* Quantity & Add to Cart */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4 bg-card border border-border rounded-lg p-4">
-                    <label className="text-sm font-medium text-foreground">Quantity:</label>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                        className="w-8 h-8 rounded-lg border border-border hover:bg-muted transition-colors"
-                      >
-                        −
-                      </button>
-                      <span className="w-8 text-center font-semibold">{quantity}</span>
-                      <button
-                        onClick={() => setQuantity(quantity + 1)}
-                        className="w-8 h-8 rounded-lg border border-border hover:bg-muted transition-colors"
-                      >
-                        +
-                      </button>
+                {purchasable ? (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4 rounded-lg border border-border bg-card p-4">
+                      <label className="text-sm font-medium text-foreground">Quantity:</label>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                          className="h-8 w-8 rounded-lg border border-border transition-colors hover:bg-muted"
+                        >
+                          −
+                        </button>
+                        <span className="w-8 text-center font-semibold">{quantity}</span>
+                        <button
+                          onClick={() => setQuantity(quantity + 1)}
+                          className="h-8 w-8 rounded-lg border border-border transition-colors hover:bg-muted"
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
-                  </div>
 
-                  <button
-                    onClick={handleAddToCart}
-                    disabled={!product.inStock}
-                    className="w-full bg-accent text-accent-foreground py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {showAddedMessage ? '✓ Added to Cart' : 'Add to Cart'}
-                  </button>
-                </div>
+                    <button
+                      onClick={handleAddToCart}
+                      disabled={!product.inStock}
+                      className="w-full rounded-lg bg-accent py-4 text-lg font-semibold text-accent-foreground transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      {showAddedMessage ? '✓ Added to Cart' : 'Add to Cart'}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="rounded-xl border border-primary/20 bg-primary/5 p-5 text-center">
+                    <p className="text-sm font-semibold text-foreground">This product is not available yet</p>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      We&apos;re launching soon. Shop BioLoop-60 and filter refills today.
+                    </p>
+                    <Link
+                      href="/shop"
+                      className="mt-4 inline-block text-sm font-semibold text-primary hover:underline"
+                    >
+                      View available products →
+                    </Link>
+                  </div>
+                )}
 
                 {/* Shipping Info */}
                 <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border">

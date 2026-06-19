@@ -30,7 +30,7 @@ export default function Home() {
         <HeroSection />
 
         {/* Impact stats */}
-        <HomeSection tone="muted" className="relative overflow-hidden">
+        <HomeSection tone="muted" tight className="relative overflow-hidden">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
@@ -63,10 +63,10 @@ export default function Home() {
 
         <ProductExplodedSection />
 
-        <SocietiesSection />
+        <SocietiesSection tight />
 
         {/* Pillars */}
-        <HomeSection>
+        <HomeSection tight>
           <SectionHeader
             eyebrow="How Eco Zindagi Works"
             title="Clean-Tech for Everyday Homes"
@@ -91,7 +91,7 @@ export default function Home() {
         </HomeSection>
 
         {/* Featured products */}
-        <HomeSection tone="muted">
+        <HomeSection tone="muted" tight>
           <SectionHeader
             align="left"
             eyebrow="Product Lineup"
@@ -106,7 +106,7 @@ export default function Home() {
         </HomeSection>
 
         {/* Blog preview */}
-        <HomeSection>
+        <HomeSection tight>
           <SectionHeader
             align="left"
             eyebrow="From the Journal"
@@ -129,7 +129,7 @@ export default function Home() {
         </HomeSection>
 
         {/* CTA */}
-        <HomeSection className="pb-12">
+        <HomeSection tight className="pb-8">
           <GlassCard glow className="mx-auto max-w-2xl p-8 text-center">
             <h2 className="font-heading text-2xl font-bold text-foreground sm:text-3xl">
               Join Pakistan&apos;s Zero-Waste Movement

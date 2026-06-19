@@ -24,7 +24,7 @@ export function HomeSection({
   return (
     <section
       id={id}
-      className={cn(tight ? 'py-6 md:py-8' : 'py-10 md:py-12', sectionTones[tone], className)}
+      className={cn(tight ? 'py-5 md:py-7' : 'py-8 md:py-10', sectionTones[tone], className)}
     >
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         {children}
@@ -53,7 +53,7 @@ export function SectionHeader({
   return (
     <div
       className={cn(
-        'mb-6 md:mb-8',
+        'mb-4 md:mb-6',
         align === 'center' ? 'text-center' : 'flex flex-col gap-6 md:flex-row md:items-end md:justify-between',
         className
       )}

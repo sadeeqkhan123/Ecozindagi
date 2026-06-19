@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Product } from './product-data'
+import { isProductPurchasable } from './product-availability'
 
 export interface CartItem {
   product: Product
@@ -45,6 +46,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [items, isLoaded])
 
   const addToCart = (product: Product, quantity: number) => {
+    if (!isProductPurchasable(product.slug)) return
     setItems((prevItems) => {
       const existingItem = prevItems.find((item) => item.product.id === product.id)
       if (existingItem) {
