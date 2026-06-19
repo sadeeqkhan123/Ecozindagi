@@ -210,7 +210,7 @@ export function ProductExplodedSection() {
   return (
     <section
       ref={containerRef}
-      className="relative mesh-bg py-4 sm:py-6 lg:h-[200vh] lg:py-0"
+      className="relative mesh-bg pb-2 pt-4 sm:pt-5 lg:h-[115vh] lg:pb-0 lg:pt-0"
       aria-label="BioLoop-60 product exploration"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">

@@ -6,6 +6,8 @@ type HomeSectionProps = {
   tone?: 'default' | 'muted' | 'soft'
   id?: string
   tight?: boolean
+  /** Remove top padding — use when stacking directly after another section */
+  flushTop?: boolean
 }
 
 const sectionTones = {
@@ -20,11 +22,16 @@ export function HomeSection({
   tone = 'default',
   id,
   tight = false,
+  flushTop = false,
 }: HomeSectionProps) {
   return (
     <section
       id={id}
-      className={cn(tight ? 'py-5 md:py-7' : 'py-8 md:py-10', sectionTones[tone], className)}
+      className={cn(
+        flushTop ? 'pb-5 pt-0 md:pb-7' : tight ? 'py-5 md:py-7' : 'py-8 md:py-10',
+        sectionTones[tone],
+        className
+      )}
     >
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         {children}

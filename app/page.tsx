@@ -63,7 +63,7 @@ export default function Home() {
 
         <ProductExplodedSection />
 
-        <SocietiesSection tight />
+        <SocietiesSection tight flushTop />
 
         {/* Pillars */}
         <HomeSection tight>

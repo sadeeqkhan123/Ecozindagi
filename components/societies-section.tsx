@@ -17,12 +17,14 @@ const benefits = [
 export function SocietiesSection({
   compact = false,
   tight = false,
+  flushTop = false,
 }: {
   compact?: boolean
   tight?: boolean
+  flushTop?: boolean
 }) {
   return (
-    <HomeSection tone="muted" tight={tight} className="relative overflow-hidden">
+    <HomeSection tone="muted" tight={tight} flushTop={flushTop} className="relative overflow-hidden border-t border-white/50">
       <div className="pointer-events-none absolute -left-24 top-1/2 h-72 w-72 -translate-y-1/2 rounded-full bg-primary/10 blur-3xl" />
       <div className="pointer-events-none absolute -right-24 top-0 h-64 w-64 rounded-full bg-accent/15 blur-3xl" />
 
